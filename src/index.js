@@ -34,6 +34,13 @@ class App extends React.Component {
         return sul ? 'Outono' : 'Primavera'
     }
 
+   icones = {
+    "Primavera" : "fa-seedling",
+    "Verão" : "fa-unbrella-beach",
+    "Outono" : "fa-tree",
+    "Inverno" : "fa-snowman"
+   }
+
     render () {
         return (
             <div>
