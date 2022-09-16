@@ -41,10 +41,53 @@ class App extends React.Component {
     "Inverno" : "fa-snowman"
    }
 
+   obterLocalizacao () {
+    window.navigator.geolocation.getCurrentPosition(
+        (position) => {
+            let data = new Date()
+            let estacao = this.obterEstacao(data, position.coords.latitude);
+            let icone = this.icones[estacao]
+            console.log(icone)
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                estacao: estacao,
+                data: data.toLocaleTimeString(),
+                icone: icone
+                }
+            )
+               
+
+        }
+    )
+   }
+
     render () {
         return (
-            <div>
-                Meu App
+            <div className='container mt-2'>
+                <div className="row justify-content-center">
+                    <div className="col-md-8">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="d-flex align-items-center border rounded mb-2" style={{height: '6rem'}}>
+                                    <i className={`fas fa-5x ${this.state.icone}`}></i>
+                                    <p className=" w-75 ms-3 text-center fs-1">{`${this.state.estacao}`}</p>
+                                </div>
+                                <div>
+                                    <p className="text-center">
+                                        {
+                                            this.state.latitude ?
+                                            `Coordenadas: ${this.state.latitude}, ${this.state.longitude}. Data: ${this.state.data}`
+                                            :
+                                            'Clique no botão para saber a sua estação climática'
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         )
     }   
